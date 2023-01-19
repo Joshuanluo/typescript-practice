@@ -1,9 +1,9 @@
 class Department{
-    // private id: string;
+    // private readonly id: string;
     // private name:string;
-    private employees: string[]=[];
+    protected employees: string[]=[];
 
-    constructor(private id:string,public name:string){
+    constructor(private readonly id:string,public name:string){
         // this.id = id;
         // this.name=n;
     }
@@ -12,7 +12,8 @@ class Department{
         
     }
     
-    addEmployees(employee:string){
+    addEmployee(employee:string){
+        // this.id='';//readonly
         this.employees.push(employee)
     }
 
@@ -23,15 +24,58 @@ class Department{
     }
 }
 
-const accounting=new Department('d1',"Accounting");
+class ITDepartment extends Department{
+    constructor(id:string,public admins:string[]){
+        super(id,'IT')
+        this.admins=admins;
+    }
+}
 
-accounting.addEmployees("Max");
-accounting.addEmployees("Man");
-accounting.name="new name";
-// accounting.employees[2] = 'Anna';//private property
+class AccountingDepartment extends Department{
+    constructor(id:string,private reports:string[]){
+        super(id,'IT');
+    }
 
-accounting.describe();
-accounting.printEmployeeInformation();  
+    addEmployee(name: string){
+        if(name==='Max'){
+            return;
+        }
+        this.employees.push(name);
+    }
+
+    addReport(text:string){
+        this.reports.push(text);
+    }
+
+    printReports(){
+        console.log(this.reports);
+        
+    }
+}
+
+const it=new ITDepartment('d1',["Max"]);
+
+it.addEmployee("Max");
+it.addEmployee("Man");
+// it.employees[2] = 'Anna';//private property
+
+it.describe();
+it.name="new name";
+it.printEmployeeInformation();  
+
+console.log(it);
+
+const accounting = new AccountingDepartment('d2',['first report'])
+accounting.addReport('second report');
+accounting.addEmployee('jane');
+
+accounting.addEmployee('Max');
+accounting.addEmployee('Josh');
+
+
+accounting.printReports();
+console.log(accounting);
+accounting.printEmployeeInformation()
 
 // const accountingCopy={name:'s',describe: accounting.describe}
 
