@@ -98,8 +98,21 @@ function moveAnimal(animal: Animal) {
 
 moveAnimal({ type: "bird", flyingSpeed: 10 });
 
-const userInputElement = <HTMLInputElement> document.getElementById("user-input")!;
-const userInputElement1 = document.getElementById('user-input1')! as HTMLInputElement;
+const userInputElement = <HTMLInputElement>document.getElementById("user-input")!;
+const userInputElement1 = document.getElementById("user-input1")! as HTMLInputElement;
+const userInputElement2 = document.getElementById("user-input1");
 
-userInputElement.value= 'Hi, there';
-userInputElement1.value= 'Hi, there1';
+userInputElement.value = "Hi, there";
+userInputElement1.value = "Hi, there1";
+if (userInputElement2) {
+	(userInputElement2 as HTMLInputElement).value = "Hi, there2";
+}
+
+interface ErrorContainer {
+	[prop: string]: string;
+}
+
+const errorBag: ErrorContainer = {
+    email: 'not a valid email!',
+    username: "Must start with a capital character!"
+}
