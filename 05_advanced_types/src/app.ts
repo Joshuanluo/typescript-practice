@@ -33,6 +33,22 @@ function add(a: Combinable, b: Combinable) {
 
 const result = add("max", "josh");
 result.split(" ");
+
+const fetchUserData = {
+	id: "ui",
+	name: "josh",
+	job: { title: "CEO", description: "My own company" },
+};
+
+// console.log(fetchUserData.job && fetchUserData.job.title)
+console.log(fetchUserData?.job?.title);
+
+const userInput = undefined;
+
+const storeData = userInput ?? "DEFAULT";
+
+console.log(storeData);
+
 // type UnknownEmployee = Employee | Admin;
 // function printEmployeeInformation(emp: UnknownEmployee) {
 // 	console.log("Name: " + emp.name);
