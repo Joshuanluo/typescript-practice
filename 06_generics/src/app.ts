@@ -43,7 +43,7 @@ function extractAndConvert<T extends object, U extends keyof T>(obj: T, key: U) 
 
 console.log(extractAndConvert({ name: "Max" }, "name"));
 
-class DataStorage<T extends string | number| boolean> {
+class DataStorage<T extends string | number | boolean> {
 	private data: T[] = [];
 
 	addItem(item: T) {
@@ -77,3 +77,22 @@ const numberStorage = new DataStorage<number>();
 // objectStorage.removeItem(joshObj);
 
 // console.log(objectStorage.getItem());
+
+interface CourseGoal {
+	title: string;
+	description: string;
+	completeUntil: Date;
+}
+
+function createCourseGoal(title: string, description: string, date: Date): CourseGoal {
+
+	let courseGoal: Partial<CourseGoal> = {};
+	courseGoal.title=title;
+	courseGoal.description=description;
+	courseGoal.completeUntil=date;
+	return courseGoal as CourseGoal;
+}
+
+const names: Readonly<string[]> = ['Max', 'Josh'];
+// names.push('Anna');
+// names.pop();
