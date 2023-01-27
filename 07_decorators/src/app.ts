@@ -1,19 +1,30 @@
-function Logger(constructor:Function){
-    console.log('Logging...');
-    console.log(constructor);
-    
+function Logger(logString: string) {
+	return function (constructor: Function) {
+		console.log(logString);
+		console.log(constructor);
+	};
 }
 
-@Logger
-class Person{
-    name = 'Josh';
-    constructor(){
-        console.log('Creating person object...');
-        
-    }
+function WithTemplate(template: string, hookId: string) {
+	return function (constructor: any) {
+		const hookEl = document.getElementById(hookId);
+        const p = new constructor();
+		if (hookEl) {
+			hookEl.innerHTML = template;
+            hookEl.querySelector('h2')!.textContent= p.name
+		}
+	};
+}
+
+// @Logger('LOGGING - PERSON')
+@WithTemplate('<h2>My Person Object</h2>', 'app')
+class Person {
+	name = "Josh";
+	constructor() {
+		console.log("Creating person object...");
+	}
 }
 
 const pers = new Person();
 
 console.log(pers);
-
