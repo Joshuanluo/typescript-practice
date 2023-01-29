@@ -9,11 +9,11 @@ function Logger(logString: string) {
 
 function WithTemplate(template: string, hookId: string) {
 	console.log("TEMPLATE FACTORY");
-	return function<T extends {new(...args:any[]): {name: string}}> (originalConstructor: T) {
+	return function <T extends { new (...args: any[]): { name: string } }>(originalConstructor: T) {
 		return class extends originalConstructor {
 			constructor(..._: any[]) {
 				super();
-                console.log('Rendering template');
+				console.log("Rendering template");
 				const hookEl = document.getElementById(hookId);
 				if (hookEl) {
 					hookEl.innerHTML = template;
@@ -90,30 +90,39 @@ class Product {
 	}
 }
 
-function Autobind(_: any, _2: string, descriptor: PropertyDescriptor){
-    const originalMethod = descriptor.value;
-    const adjDescriptor : PropertyDescriptor ={
-        configurable: true,
-        enumerable: false,
-        get(){
-            const boundFn = originalMethod.bind(this);
-            return boundFn;
-        }
-    }
-    return adjDescriptor;
+function Autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
+	const originalMethod = descriptor.value;
+	const adjDescriptor: PropertyDescriptor = {
+		configurable: true,
+		enumerable: false,
+		get() {
+			const boundFn = originalMethod.bind(this);
+			return boundFn;
+		},
+	};
+	return adjDescriptor;
 }
 
 class Printer {
-    message = 'This works!';
+	message = "This works!";
 
-    @Autobind
-    showMessage(){
-        console.log(this.message);
-        
-    }
+	@Autobind
+	showMessage() {
+		console.log(this.message);
+	}
 }
 
 const p = new Printer();
 
-const button = document.querySelector('button')!;
-button.addEventListener('click',p.showMessage);
+const button = document.querySelector("button")!;
+button.addEventListener("click", p.showMessage);
+
+class Course {
+	title: string;
+	price: number;
+
+	constructor(t: string, p: number) {
+		this.title = t;
+		this.price = p;
+	}
+}
